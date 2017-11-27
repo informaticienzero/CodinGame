@@ -5,6 +5,9 @@ import time
 from sys import stderr
 from typing import Dict, List, Set, Tuple
 
+# Thanks Stilgart (https://www.codingame.com/profile/f6389a8319f07b08072b207feb2572c9790215).
+# Without you, solving this puzzle would have been impossible !
+
 gc.disable()
 start = time.time()
 
@@ -434,7 +437,7 @@ class Game:
         self.all_connections: Dict[str, Dict[str, int]] = {}
         """For each city, give all it's neighbours."""
 
-        self.tickets: List[str] = list(reversed(sorted(tickets, key = lambda t: int(t.split()[0]))))
+        self.tickets: List[str] = tickets
         """All tickets when game starts."""
         self.ticket_cities: Set[str] = set([city for cities in [[x[1], x[2]] for x in (x.split() for x in self.tickets)] for city in cities])
         """A set of all cities present in the tickets."""
@@ -515,7 +518,7 @@ game: Game = Game(deck, routes, tickets)
 
 totals: List[int] = []
 if tickets:
-    for i in range(len(tickets)):
+    for i in range(num_tickets):
         totals.append(game.play_game(i))
     print(f'{max(totals)}')
 else:
